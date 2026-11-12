@@ -1,5 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#d9b98a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="子犬ショップ">
+<meta name="format-detection" content="telephone=no">
+<style>[hidden]{display:none!important}html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:#d9b98a}img{max-width:100%}</style>
 <title>子犬ショップ</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap">
 <style>
@@ -128,6 +138,8 @@ body{margin:0;background:var(--wall2);color:var(--ink);font-family:"DotGothic16"
 @keyframes fly{0%{transform:translate(0,0)}25%{transform:translate(14px,-6px)}50%{transform:translate(26px,4px)}75%{transform:translate(10px,10px)}100%{transform:translate(0,0)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}.fdog{transition:none}}
 </style>
+</head>
+<body>
 <div id="app">
   <div id="timebar" aria-hidden="true"><div id="timefill"></div></div>
   <div id="hud" class="panel">
@@ -408,7 +420,7 @@ function dogImg(d){return dogURL(d.size,d.v,d.eating>0&&d.eatF===0?'bone':(d.eat
 function layout(){
   var W=$('app').clientWidth,H=window.innerHeight;
   var pw=Math.floor(((W-32)/3-10)/24),ph=Math.floor((H-490)/62);
-  PX=Math.max(3,Math.min(8,pw,ph));
+  PX=Math.max(H<600?2:3,Math.min(8,pw,ph));
   document.documentElement.style.setProperty('--px',PX);
 }
 
@@ -823,3 +835,5 @@ setInterval(tick,100);
 titleScreen();
 })();
 </script>
+</body>
+</html>
