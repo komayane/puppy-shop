@@ -17,8 +17,8 @@
 :root{--ink:#3a2a22;--wall:#f9e8cf;--wall2:#d9b98a;--panel:#fff7e8;--floor:#d3a977;--bar:#7a5a42;--gold:#ffc83d;--ok:#5cbd6b;--warn:#f4a300;--bad:#e8505b;--water:#8fd4ee;--px:5;color-scheme:light}
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0;background:var(--wall2);color:var(--ink);font-family:"DotGothic16","Hiragino Maru Gothic ProN","Yu Gothic",Meiryo,system-ui,sans-serif;font-size:15px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));user-select:none;-webkit-user-select:none;touch-action:none;overscroll-behavior:none}
-#app{position:relative;max-width:720px;height:100%;margin:0 auto;padding:8px;display:flex;flex-direction:column;gap:6px;background:var(--wall);overflow:hidden}
+body{margin:0;background:var(--wall2);color:var(--ink);font-family:"DotGothic16","Hiragino Maru Gothic ProN","Yu Gothic",Meiryo,system-ui,sans-serif;font-size:15px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));user-select:none;-webkit-user-select:none;touch-action:none;overscroll-behavior:none;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#app{position:relative;flex:none;width:360px;height:720px;margin:0;padding:8px;display:flex;flex-direction:column;gap:6px;background:var(--wall);overflow:hidden}
 .pix{image-rendering:pixelated;width:calc(var(--w,1)*var(--s,var(--px))*1px);height:auto;display:block}
 .panel{background:var(--panel);border:4px solid var(--ink);box-shadow:4px 4px 0 var(--ink)}
 #hud{display:flex;align-items:center;gap:10px;padding:4px 10px;flex-shrink:0}
@@ -417,8 +417,15 @@ function nf(d){return(d.toilet?1:0)+(d.hungry?1:0)+(d.dirty?1:0)+(d.treat?1:0)+(
 function mood(d){var n=nf(d);return n===0?'happy':n===1?'ok':'sad'}
 function dogImg(d){return dogURL(d.size,d.v,d.eating>0&&d.eatF===0?'bone':(d.eating>0&&d.eatF>=3?'happy':mood(d)),d.dirty)}
 
+var ASPECT=.5;
+function fit(){
+  var b=document.body,cs=getComputedStyle(b),aw=b.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight),ah=b.clientHeight;
+  var w=Math.floor(Math.min(aw,ah*ASPECT,420)),h=Math.floor(w/ASPECT);
+  var a=$('app');a.style.width=w+'px';a.style.height=h+'px';
+}
 function layout(){
-  var W=$('app').clientWidth,H=window.innerHeight;
+  fit();
+  var W=$('app').clientWidth,H=$('app').clientHeight;
   var pw=Math.floor(((W-32)/3-10)/24),ph=Math.floor((H-490)/62);
   PX=Math.max(H<600?2:3,Math.min(8,pw,ph));
   document.documentElement.style.setProperty('--px',PX);
